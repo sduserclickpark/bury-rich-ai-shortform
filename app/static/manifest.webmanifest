@@ -1,0 +1,9 @@
+{
+  "name": "BURY RICH AI SHORTFORM STUDIO",
+  "short_name": "BR 숏폼",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0b",
+  "theme_color": "#0b0b0b",
+  "icons": [{"src": "/static/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}]
+}

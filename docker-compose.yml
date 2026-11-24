@@ -1,0 +1,10 @@
+# 자체 서버(VPS)에서 실행할 때: docker compose up -d
+services:
+  studio:
+    build: .
+    restart: unless-stopped
+    ports: ["8000:8000"]
+    env_file: .env
+    volumes: ["studio-data:/data"]
+volumes:
+  studio-data:
