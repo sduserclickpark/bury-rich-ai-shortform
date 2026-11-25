@@ -50,3 +50,14 @@ def test_plan_respects_duration(media_dir):
             if s["kind"] == "video":
                 end = s["src_start"] + s["dur"] * s["speed"]
                 assert not (3.0 < s["src_start"] + 0.1 < 9.0) or end <= 3.0
+
+
+def test_production_requires_secrets(monkeypatch):
+    from app import config
+    monkeypatch.setattr(config, "APP_ENV", "production")
+    monkeypatch.setattr(config, "SECRET_KEY", "dev-secret-change-me")
+    monkeypatch.setattr(config, "ADMIN_PASSWORD", "")
+    assert len(config.production_problems()) == 2
+    monkeypatch.setattr(config, "SECRET_KEY", "x" * 40)
+    monkeypatch.setattr(config, "ADMIN_PASSWORD", "abcd1234")
+    assert config.production_problems() == []

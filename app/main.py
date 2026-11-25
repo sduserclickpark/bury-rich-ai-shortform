@@ -19,6 +19,9 @@ from .services.catalog import AGES, INDUSTRIES, MOODS, PURPOSES, STYLES
 
 @asynccontextmanager
 async def lifespan(_app):
+    probs = config.production_problems()
+    if probs:  # 운영 서버에서 보안 설정이 빠지면 시작하지 않고 원인을 로그에 남긴다
+        raise RuntimeError("설정 오류: " + " / ".join(probs))
     db.init()
     auth.ensure_admin(config.ADMIN_EMAIL, config.ADMIN_PASSWORD)
     yield

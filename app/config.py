@@ -45,5 +45,18 @@ OUT_W, OUT_H, OUT_FPS = 1080, 1920, 30
 ALLOWED_DURATIONS = (15, 30, 45, 60)
 USD_KRW = float(_env("USD_KRW", "1400"))
 
+
+
+def production_problems() -> list[str]:
+    """운영(production) 모드에서 반드시 고쳐야 하는 설정 문제 목록."""
+    probs = []
+    if APP_ENV == "production":
+        if SECRET_KEY in ("", "dev-secret-change-me") or len(SECRET_KEY) < 32:
+            probs.append("SECRET_KEY 환경변수를 32자 이상의 임의 문자열로 설정해야 합니다.")
+        if not ADMIN_PASSWORD or len(ADMIN_PASSWORD) < 8:
+            probs.append("ADMIN_PASSWORD 환경변수를 8자 이상으로 설정해야 합니다.")
+    return probs
+
+
 for d in (DATA_DIR, UPLOAD_DIR, OUTPUT_DIR, WORK_DIR, MUSIC_DIR, REFERENCE_DIR, BACKUP_DIR):
     d.mkdir(parents=True, exist_ok=True)

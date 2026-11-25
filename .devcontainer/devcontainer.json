@@ -1,0 +1,9 @@
+{
+  "name": "BURY RICH AI SHORTFORM STUDIO (무료 테스트)",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+  "hostRequirements": { "cpus": 4 },
+  "postCreateCommand": "bash scripts/codespace_setup.sh",
+  "postStartCommand": "bash scripts/codespace_start.sh",
+  "forwardPorts": [8000],
+  "portsAttributes": { "8000": { "label": "숏폼 스튜디오", "onAutoForward": "notify" } }
+}
